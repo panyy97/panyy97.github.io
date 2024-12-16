@@ -13,7 +13,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2024/12/03/hello-world/"/>
+    <link rel="canonical" href="http://example.com/2024/12/13/xargs/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -23,15 +23,19 @@
         
         <meta name="description" content="This is xiaopanpan web site">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2024/12/03/hello-world/index.html">
+<meta property="og:title" content="xargs保姆级用法">
+<meta property="og:url" content="http://example.com/2024/12/13/xargs/index.html">
 <meta property="og:site_name" content="xiaopanpan">
 <meta property="og:description" content="This is xiaopanpan web site">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-12-03T01:42:19.891Z">
-<meta property="article:modified_time" content="2024-12-03T01:42:19.891Z">
+<meta property="og:image" content="http://example.com/2024/12/13/xargs/1734079890749.png">
+<meta property="og:image" content="http://example.com/2024/12/13/xargs/1734077296346.png">
+<meta property="article:published_time" content="2024-12-13T07:52:52.000Z">
+<meta property="article:modified_time" content="2024-12-16T02:32:19.257Z">
 <meta property="article:author" content="panyy">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/12/13/xargs/1734079890749.png">
     
     
     <!--- Icon Part-->
@@ -43,7 +47,7 @@
     
     <title>
         
-            Hello World | Coder-yu
+            xargs保姆级用法 | Coder-yu
         
     </title>
 
@@ -419,8 +423,12 @@
 
 		<div class="article-title relative w-full">
 			
-			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Hello World</h1>
+			
+			
+			<img src="/images/post-headers/xargs.jpg" alt="xargs保姆级用法" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">xargs保姆级用法</h1>
 			</div>
 			
 		</div>
@@ -441,20 +449,31 @@
 					<div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2024-12-03 09:42:19</span>
-        <span class="mobile">2024-12-03 09:42:19</span>
+        <span class="desktop">2024-12-13 15:52:52</span>
+        <span class="mobile">2024-12-13 15:52:52</span>
         <span class="hover-info">创建</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-12-03 09:42:19</span>
-            <span class="mobile">2024-12-03 09:42:19</span>
+            <span class="desktop">2024-12-16 10:32:19</span>
+            <span class="mobile">2024-12-16 10:32:19</span>
             <span class="hover-info">更新</span>
         </span>
     
 
     
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
@@ -476,19 +495,100 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>Welcome to <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/" >Hexo<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>! This is your very first post. Check <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/" >documentation<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html" >troubleshooting<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> or you can ask me on <a class="link"   target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues" >GitHub<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure></div>
+			<p>开发过程中，经常能看到 <code>xargs</code> 命令，仅了解这个命令与 <code>|</code> 的用法类似，但是具体各个参数的含义，老是忘，考虑到比较常用，这里花一些时间来记录一下这个命令的用法。</p>
+<h4 id="真实场景应用"><a href="#真实场景应用" class="headerlink" title="真实场景应用"></a>真实场景应用</h4><p>既然对 <code>|</code> 比较熟悉，那就尽量对比着来学习更不容易忘；</p>
+<p>举个例子：对安全要求比较高的厂商一般都会要求软件包内不允许携带一些嗅探类的工具，一般可以使用这个命令来进行过滤；过滤环境上所有匹配的文件，然后根据匹配到的文件路径，判断文件来源哪些包</p>
+<p><code>find / -iname &quot;*tcpdump*&quot; -o -iname &quot;*sniffer*&quot; -o -iname &quot;*wireshark*&quot; -o -iname &quot;*Netcat*&quot; -o -iname &quot;*gdb*&quot; -o -iname &quot;*strace*&quot; -o -iname &quot;*readeIf*&quot; -o -iname &quot;*cpp*&quot; -o -iname &quot;gcc&quot; -o -iname &quot;*dexdump*&quot; -o -iname &quot;*mirror*&quot; -o -iname &quot;*JDK*&quot;  &gt; result.txt</code></p>
+<p><code>cat result.txt | sort | uniq&quot;</code></p>
+<p>把输出的文件路径使用 <code>rpm -qf xxx</code> 找到，然后删除。</p>
+<h5 id="命令分析"><a href="#命令分析" class="headerlink" title="命令分析"></a>命令分析</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/12/13/xargs/1734079890749.png"
+                     
+                ></p>
+<p>用法很简单，基本上都是把 | 左边的输出作为右边的输入；但是有个问题，管道符左边的输出默认是全量传递给右边，那如果我想左边的数据按照某种规则进行分割，然后再传递给右边，可能就没法使用管道符简单的实现了。</p>
+<h4 id="xargs是什么"><a href="#xargs是什么" class="headerlink" title="xargs是什么"></a>xargs是什么</h4><p>xargs：是将标准输入转为命令行参数</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> | xargs <span class="built_in">echo</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></div>
 
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html" >Writing<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></div>
 
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/server.html" >Server<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></div>
 
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html" >Generating<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></div>
+<h4 id="xargs-与-区别"><a href="#xargs-与-区别" class="headerlink" title="xargs 与 | 区别"></a>xargs 与 | 区别</h4><p>xargs：是将标准输入转为命令行参数</p>
+<p>|：上条命令的标准输出作为下条命令的标准输入</p>
+<h4 id="–help大法"><a href="#–help大法" class="headerlink" title="–help大法"></a>–help大法</h4><p><code>linux</code>用户肯定会的 <code>--help</code>大法，可以列出来大多数常见的用法，奈何博主英语不好，每次还是习惯去百度中文解释，这里为了后面查看方便，放一张 <code>--help</code> 的回显图</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2024/12/13/xargs/1734077296346.png"
+                     
+                ></p>
+<p>参数比较多，简单分一下类：</p>
+<ol>
+<li>分割选项（xargs、xargs -d、xargs -0）</li>
+<li>分批选项（xargs -n、xargs -L、xargs -i）</li>
+<li>交互式处理（xargs -p）</li>
+<li>预打印执行的命令（xargs -t）</li>
+<li>传递终止符（xargs -E）</li>
+</ol>
+<h4 id="分割选项"><a href="#分割选项" class="headerlink" title="分割选项"></a>分割选项</h4><p>假设我有一个 test.txt 文件</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# <span class="built_in">cat</span> test.txt </span><br><span class="line">aa bb cc</span><br><span class="line">aa</span><br><span class="line">bb</span><br><span class="line">cc</span><br></pre></td></tr></table></figure></div>
 
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<h5 id="1、xargs"><a href="#1、xargs" class="headerlink" title="1、xargs"></a>1、xargs</h5><p>直接使用xargs命令时，默认按照空白（空格，Tab，回车换行等）进行分割</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# <span class="built_in">cat</span> test.txt | xargs</span><br><span class="line">aa bb cc aa bb cc</span><br><span class="line">[root@localhost ~]# <span class="built_in">cat</span> test.txt | xargs <span class="built_in">echo</span> </span><br><span class="line">aa bb cc aa bb cc</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="2、xargs-d"><a href="#2、xargs-d" class="headerlink" title="2、xargs -d"></a>2、xargs -d</h5><p>自定义分割符号，按照 \n 来分割</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# <span class="built_in">cat</span> test.txt | xargs -d <span class="string">&quot;\n&quot;</span></span><br><span class="line">aa bb cc aa bb cc</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="3、xargs-0"><a href="#3、xargs-0" class="headerlink" title="3、xargs -0"></a>3、xargs -0</h5><p>xargs默认按照空白（空格，Tab，回车换行等）进行分割，所以处理包含空格的一些文件名时会有问题，这种情况下一般会使用 -0</p>
+<p>构造存在空格的文件</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="built_in">test</span>]# ll</span><br><span class="line">总用量 0</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 aa</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 aa bb cc</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 bb</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 cc</span><br></pre></td></tr></table></figure></div>
+
+<p>正确的分割</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="built_in">test</span>]# find . -<span class="built_in">type</span> f -print0 | xargs -0 <span class="built_in">ls</span> -l</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 ./aa</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 ./aa bb cc</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 ./bb</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 ./cc</span><br></pre></td></tr></table></figure></div>
+
+<p>错误的分割</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="built_in">test</span>]# find . -<span class="built_in">type</span> f | xargs <span class="built_in">ls</span> -l</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 ./aa</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 ./aa</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 bb</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 ./bb</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 cc</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 13 17:35 ./cc</span><br></pre></td></tr></table></figure></div>
+
+<p>重点：find命令有一个特别的参数-print0，指定输出的文件列表以ASCII码NUL (‘\0’)分隔。然后，xargs命令的-0参数表示用ASCII码NUL (‘\0’)当作分隔符</p>
+<h4 id="分批选项"><a href="#分批选项" class="headerlink" title="分批选项"></a>分批选项</h4><h5 id="1、xargs-n"><a href="#1、xargs-n" class="headerlink" title="1、xargs -n"></a>1、xargs -n</h5><p>-n 参数指定每次将多少项作为命令行参数</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# <span class="built_in">echo</span> &#123;0..9&#125;</span><br><span class="line">0 1 2 3 4 5 6 7 8 9</span><br><span class="line">[root@localhost ~]# <span class="built_in">echo</span> &#123;0..9&#125; | xargs -n 2 <span class="built_in">echo</span> </span><br><span class="line">0 1</span><br><span class="line">2 3</span><br><span class="line">4 5</span><br><span class="line">6 7</span><br><span class="line">8 9</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="2、xargs-L"><a href="#2、xargs-L" class="headerlink" title="2、xargs -L"></a>2、xargs -L</h5><p>如果标准输入包含多行，-L参数指定多少行作为一个命令行参数</p>
+<p>假设我有一个test.txt文件</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# <span class="built_in">cat</span> test.txt </span><br><span class="line">aa bb cc</span><br><span class="line">aa</span><br><span class="line"></span><br><span class="line">bb</span><br><span class="line">cc</span><br></pre></td></tr></table></figure></div>
+
+<p>可以按照行进行参数传递【空行默认不展示】</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# <span class="built_in">cat</span> test.txt | xargs -L 1</span><br><span class="line">aa bb cc</span><br><span class="line">aa</span><br><span class="line">bb</span><br><span class="line">cc</span><br><span class="line">[root@localhost ~]# <span class="built_in">cat</span> test.txt | xargs -L 2</span><br><span class="line">aa bb cc aa</span><br><span class="line">bb cc</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="3、xargs-i"><a href="#3、xargs-i" class="headerlink" title="3、xargs -i"></a>3、xargs -i</h5><p>如果不使用-i， 则默认是将分割后处理后的结果整体传递到命令的最尾部。但是有时候需要传递到多个位置，不用 -i 就不知道传递到哪个位置了。使用xargs -i 时以大括号{}作为替换符号，传递的时候看到{}就将被结果替换。可以将{}放在任意需要传递的参数位置上，如果多个地方使用{}就实现了多个传递</p>
+<p>案例：将文件名的bak去掉</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@192 <span class="built_in">test</span>]# ll</span><br><span class="line">总用量 0</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 14 05:20 a.txt.bak</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 14 05:20 b.txt.bak</span><br></pre></td></tr></table></figure></div>
+
+<p>命令</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@192 <span class="built_in">test</span>]# find . -name <span class="string">&quot;*.bak*&quot;</span> | xargs -i <span class="built_in">echo</span> &#123;&#125; &#123;&#125; | sed <span class="string">&#x27;s/.bak//2&#x27;</span> | xargs -L 1 <span class="built_in">mv</span></span><br><span class="line">[root@192 <span class="built_in">test</span>]# ll</span><br><span class="line">总用量 0</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 14 05:20 a.txt</span><br><span class="line">-rw-r--r--. 1 root root 0 12月 14 05:20 b.txt</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="4、xargs-I【大写i】"><a href="#4、xargs-I【大写i】" class="headerlink" title="4、xargs -I【大写i】"></a>4、xargs -I【大写i】</h5><p>xargs -I【大写i】和-i 是一样的，只是-i默认使用大括号{}作为替换符号，-I则可以指定其他的符号、字母、数字作为替换符号，但是必须用引号包起来。man推荐使用-I；{}有时候也会被其他命令所用到</p>
+<p>案例：test.txt根据文件内容，每一行创建对应的目录</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> test.txt | xargs -I file bash -c <span class="string">&#x27;echo file; mkdir file&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>结果</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@192 <span class="built_in">test</span>]# <span class="built_in">cat</span> test.txt </span><br><span class="line">aa</span><br><span class="line">bb</span><br><span class="line">cc</span><br><span class="line">d</span><br><span class="line">[root@192 <span class="built_in">test</span>]# <span class="built_in">cat</span> test.txt | xargs -I file bash -c <span class="string">&#x27;echo file; mkdir file&#x27;</span></span><br><span class="line">aa</span><br><span class="line">bb</span><br><span class="line">cc</span><br><span class="line">d</span><br></pre></td></tr></table></figure></div>
+
+<p>巧妙应用场景：rm -rf 命令每次最多删除的文件有长度限制，如果某一个目录下文件太多，直接使用rm -rf 删除时会执行失败，此时使用xargs可以巧妙解决</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> | xargs -n 100 <span class="built_in">rm</span> -rf <span class="comment"># 每次只删除100个</span></span><br></pre></td></tr></table></figure></div>
+
+<h4 id="交互式处理"><a href="#交互式处理" class="headerlink" title="交互式处理"></a>交互式处理</h4><p>-p 参数一般用来询问用户是否要执行</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@192 <span class="built_in">test</span>]# <span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> | xargs -p <span class="built_in">echo</span></span><br><span class="line"><span class="built_in">echo</span> hello world ?...y</span><br><span class="line">hello world</span><br><span class="line">[root@192 <span class="built_in">test</span>]# <span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> | xargs -p <span class="built_in">echo</span></span><br><span class="line"><span class="built_in">echo</span> hello world ?...n</span><br><span class="line">[root@192 <span class="built_in">test</span>]# </span><br></pre></td></tr></table></figure></div>
+
+<h4 id="预打印命令"><a href="#预打印命令" class="headerlink" title="预打印命令"></a>预打印命令</h4><p>-t 参数用来打印要执行的命令，然后执行，不需要确认</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@192 <span class="built_in">test</span>]# <span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> | xargs -t</span><br><span class="line"><span class="built_in">echo</span> hello world </span><br><span class="line">hello world</span><br></pre></td></tr></table></figure></div>
+
+<h4 id="传递终止符"><a href="#传递终止符" class="headerlink" title="传递终止符"></a>传递终止符</h4><p>-E 指定终止符号</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@192 <span class="built_in">test</span>]# <span class="built_in">cat</span> test.txt | xargs -n 1</span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">c</span><br><span class="line">d</span><br><span class="line">e</span><br><span class="line">f</span><br><span class="line">g</span><br><span class="line">[root@192 <span class="built_in">test</span>]# <span class="built_in">cat</span> test.txt | xargs -n 1 -E <span class="string">&#x27;c&#x27;</span></span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">[root@192 <span class="built_in">test</span>]# <span class="built_in">cat</span> test.txt | xargs -i -E <span class="string">&#x27;c&#x27;</span> <span class="built_in">echo</span> &#123;&#125;</span><br><span class="line">a</span><br><span class="line">b</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>看到这里，恭喜你，又学到了一个可以装逼的命令。</p>
 
 		</div>
 
@@ -496,18 +596,18 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> Hello World</li>
+        <li><strong>标题:</strong> xargs保姆级用法</li>
         <li><strong>作者:</strong> panyy</li>
         <li><strong>创建于
-                :</strong> 2024-12-03 09:42:19</li>
+                :</strong> 2024-12-13 15:52:52</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-12-03 09:42:19
+                    :</strong> 2024-12-16 10:32:19
             </li>
         
         <li>
-            <strong>链接:</strong> https://panyy97.github.io/2024/12/03/hello-world/
+            <strong>链接:</strong> https://panyy97.github.io/2024/12/13/xargs/
         </li>
         <li>
             <strong>
@@ -526,24 +626,32 @@
 		
 
 		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Linux/">#Linux</a>&nbsp;
+			</li>
+			
+		</ul>
+		
 
 		
 
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
 			
-			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
-				<a class="prev" rel="prev" href="/2024/12/06/Font/">
-					<span class="left arrow-icon flex justify-center items-center">
-						<i class="fa-solid fa-chevron-left"></i>
-					</span>
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/12/06/init/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item">Font</span>
-						<span class="post-nav-item">上一篇</span>
+						<span class="post-nav-title-item">初次见面，请多指教</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
 					</span>
 				</a>
 			</div>
-			
 			
 		</div>
 		
@@ -600,8 +708,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">Hello World</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol>
+		<div class="page-title">xargs保姆级用法</div>
+		
 
 	</div>
 </div>
