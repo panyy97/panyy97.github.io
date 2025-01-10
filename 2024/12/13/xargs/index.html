@@ -31,9 +31,10 @@
 <meta property="og:image" content="http://example.com/2024/12/13/xargs/1734079890749.png">
 <meta property="og:image" content="http://example.com/2024/12/13/xargs/1734077296346.png">
 <meta property="article:published_time" content="2024-12-13T07:52:52.000Z">
-<meta property="article:modified_time" content="2024-12-16T02:32:19.257Z">
+<meta property="article:modified_time" content="2024-12-24T09:27:41.286Z">
 <meta property="article:author" content="panyy">
 <meta property="article:tag" content="Linux">
+<meta property="article:tag" content="xargs">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2024/12/13/xargs/1734079890749.png">
     
@@ -88,7 +89,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"example.com","root":"/","language":"zh-CN"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"人生不是一种享乐，而是一桩十分繁重的工作","subtitle":{"text":["The day goes by, the day goes by"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/panyy97","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/12/02 10:09:00"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":6,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":null},"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"人生不是一种享乐，而是一桩十分繁重的工作","subtitle":{"text":["The day goes by, the day goes by"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/panyy97","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"cloud"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/12/02 10:09:00"};
     window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
     window.data = {"masonry":false};
   </script>
@@ -393,7 +394,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -401,7 +402,7 @@
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">6</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -456,8 +457,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-12-16 10:32:19</span>
-            <span class="mobile">2024-12-16 10:32:19</span>
+            <span class="desktop">2024-12-24 17:27:41</span>
+            <span class="mobile">2024-12-24 17:27:41</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -470,6 +471,10 @@
                 
                     <li>
                         <a href="/tags/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/xargs/">xargs</a>&nbsp;
                     </li>
                 
             </ul>
@@ -603,7 +608,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2024-12-16 10:32:19
+                    :</strong> 2024-12-24 17:27:41
             </li>
         
         <li>
@@ -632,6 +637,10 @@
 				<a href="/tags/Linux/">#Linux</a>&nbsp;
 			</li>
 			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/xargs/">#xargs</a>&nbsp;
+			</li>
+			
 		</ul>
 		
 
@@ -639,6 +648,18 @@
 
 		
 		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/12/31/2024%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">2024年终总结技巧</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
 			
 			
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
@@ -709,7 +730,7 @@
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
 		<div class="page-title">xargs保姆级用法</div>
-		
+		<ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9C%9F%E5%AE%9E%E5%9C%BA%E6%99%AF%E5%BA%94%E7%94%A8"><span class="nav-text">真实场景应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%88%86%E6%9E%90"><span class="nav-text">命令分析</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xargs%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">xargs是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xargs-%E4%B8%8E-%E5%8C%BA%E5%88%AB"><span class="nav-text">xargs 与 | 区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%80%93help%E5%A4%A7%E6%B3%95"><span class="nav-text">–help大法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%89%B2%E9%80%89%E9%A1%B9"><span class="nav-text">分割选项</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81xargs"><span class="nav-text">1、xargs</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81xargs-d"><span class="nav-text">2、xargs -d</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3%E3%80%81xargs-0"><span class="nav-text">3、xargs -0</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%89%B9%E9%80%89%E9%A1%B9"><span class="nav-text">分批选项</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1%E3%80%81xargs-n"><span class="nav-text">1、xargs -n</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2%E3%80%81xargs-L"><span class="nav-text">2、xargs -L</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3%E3%80%81xargs-i"><span class="nav-text">3、xargs -i</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4%E3%80%81xargs-I%E3%80%90%E5%A4%A7%E5%86%99i%E3%80%91"><span class="nav-text">4、xargs -I【大写i】</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%A4%84%E7%90%86"><span class="nav-text">交互式处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%84%E6%89%93%E5%8D%B0%E5%91%BD%E4%BB%A4"><span class="nav-text">预打印命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%A0%E9%80%92%E7%BB%88%E6%AD%A2%E7%AC%A6"><span class="nav-text">传递终止符</span></a></li></ol>
 
 	</div>
 </div>
@@ -731,12 +752,12 @@
               <span>2024</span>
               -
             
-            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">panyy</a>
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">panyy</a>
             
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共撰写了 4 篇文章
+                        共撰写了 6 篇文章
                     </span>
                     
                 </p>
