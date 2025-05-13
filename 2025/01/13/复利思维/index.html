@@ -158,28 +158,15 @@
   isHighlightShrink: false,
   isToc: false,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
-  const $loadingBox = document.getElementById('loading-box')
-  const $body = document.body
-  const preloader = {
-    endLoading: () => {
-      $body.style.overflow = ''
-      $loadingBox.classList.add('loaded')
-    },
-    initLoading: () => {
-      $body.style.overflow = 'hidden'
-      $loadingBox.classList.remove('loaded')
-    }
-  }
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
 
-  preloader.initLoading()
-  window.addEventListener('load', preloader.endLoading)
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
 
-  if (false) {
-    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
-    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
-  }
-})()</script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">small corner</span></a><a class="nav-page-title" href="/"><span class="site-name">复利思维</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">复利思维</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-13T03:17:05.000Z" title="发表于 2025-01-13 11:17:05">2025-01-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-12T02:55:24.442Z" title="更新于 2025-05-12 10:55:24">2025-05-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>几年前有一个热度比较高的观点 <code>一万小时定律 </code>：通俗的解释就是说：只要再某个领域投入超过一万小时的练习，就能够达到专家水平。</p>
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-center-circle.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">small corner</span></a><a class="nav-page-title" href="/"><span class="site-name">复利思维</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">复利思维</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-13T03:17:05.000Z" title="发表于 2025-01-13 11:17:05">2025-01-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-12T02:55:24.442Z" title="更新于 2025-05-12 10:55:24">2025-05-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>几年前有一个热度比较高的观点 <code>一万小时定律 </code>：通俗的解释就是说：只要再某个领域投入超过一万小时的练习，就能够达到专家水平。</p>
 <p>但是，很快这个观点后来就被纠正了，比较正式的解释如下</p>
 <p>格拉德威尔的原文【《异类》- 第二章】和流行的版本差距是存在的。他再该章中引述的心理学家们说的是：从统计上来看，一万小时的练习是成为某个领域专家的必要条件。但是必要条件并不是充分条件。</p>
 <p>首先，即使是练习，也有练习方法是否得当与否，练习质量高低之分。我们不需要心理学家也能意识到，埋头傻练和有技巧有方法的练习不可能有相同的结果。</p>
@@ -194,12 +181,12 @@
 <p>知行合一，以知促行，以行促知</p>
 <p>如果说，一万小时定律是 <code>行</code> ，那么接下来要聊的复利思维就是属于 <code>知</code></p>
 <p>经济学中有一个复利的概念，是用来计算本金及其产生的利息多次轮回叠加后的收益，利上加利。</p>
-<p><img src="/2024/12/06/Font/1736823753027.png"></p>
+<p><img src="/2025/01/13/%E5%A4%8D%E5%88%A9%E6%80%9D%E7%BB%B4/1736823753027.png"></p>
 <p>同时，经济学家也用这个公示代表复利效应；</p>
 <p>其中 i 代表你正在做的事，n代表时间。</p>
 <p>当 i 为正时，例如你每天坚持看半小时书，也许一天两天，你和别人的差距无法显现，但是三四十年之后，差异是你无法想象的；</p>
 <p>只要 i 为正，即使你在做正确的事，时间就会为你带来奇迹。</p>
-<p><img src="/2024/12/06/Font/1736823580619.png"></p>
+<p><img src="/2025/01/13/%E5%A4%8D%E5%88%A9%E6%80%9D%E7%BB%B4/1736823580619.png"></p>
 <p>这就是指数函数的魅力</p>
 <p><strong>所谓复利思维，其本质就是：做事情A，会导致结果B；而结果B，又会反过来加强A，不断循环。</strong></p>
 <p>那么对于普通人来说，复利思维能带来什么启迪呢？</p>

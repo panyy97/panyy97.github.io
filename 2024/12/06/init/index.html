@@ -159,28 +159,15 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
-  const $loadingBox = document.getElementById('loading-box')
-  const $body = document.body
-  const preloader = {
-    endLoading: () => {
-      $body.style.overflow = ''
-      $loadingBox.classList.add('loaded')
-    },
-    initLoading: () => {
-      $body.style.overflow = 'hidden'
-      $loadingBox.classList.remove('loaded')
-    }
-  }
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
 
-  preloader.initLoading()
-  window.addEventListener('load', preloader.endLoading)
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
 
-  if (false) {
-    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
-    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
-  }
-})()</script><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/post-headers/init.JPG);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">small corner</span></a><a class="nav-page-title" href="/"><span class="site-name">初次见面，请多指教</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">初次见面，请多指教</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-06T08:25:18.000Z" title="发表于 2024-12-06 16:25:18">2024-12-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-12T02:49:33.660Z" title="更新于 2025-05-12 10:49:33">2025-05-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>第一次产生使用博客记录一些事情的念头的具体时间已经记不清了，但是可以肯定的是，内心曾不止一次的想过这件事；拖延，不知道写啥，觉得博客风格没有设置很完美…… 诸如此类的理由，都没有落实到位，直至24年8月份左右，前同事发我他的博客首页，曾经萌生了多次的念头终于有了落实的想法；使用<code>hexo + github</code> 配合各路大神开发的各种各样的主题，这一次，我承认我心动了。</p>
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-center-circle.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/post-headers/init.JPG);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">small corner</span></a><a class="nav-page-title" href="/"><span class="site-name">初次见面，请多指教</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">初次见面，请多指教</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-06T08:25:18.000Z" title="发表于 2024-12-06 16:25:18">2024-12-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-12T02:49:33.660Z" title="更新于 2025-05-12 10:49:33">2025-05-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>第一次产生使用博客记录一些事情的念头的具体时间已经记不清了，但是可以肯定的是，内心曾不止一次的想过这件事；拖延，不知道写啥，觉得博客风格没有设置很完美…… 诸如此类的理由，都没有落实到位，直至24年8月份左右，前同事发我他的博客首页，曾经萌生了多次的念头终于有了落实的想法；使用<code>hexo + github</code> 配合各路大神开发的各种各样的主题，这一次，我承认我心动了。</p>
 <h6 id="关于拖延"><a href="#关于拖延" class="headerlink" title="关于拖延"></a>关于拖延</h6><p>其实距离我在<code>github</code>上搭建工程到今天写的第一篇文章，中间也已经隔了好多天，直至写下这第一篇文章的时候，我感觉我还没有准备好；但是今天刚好是周五，而且基本上完成了手动上的一些事情，就强迫自己开始，毕竟俗话说得好，完事开头难嘛，我今天就咬咬牙把头给开了，后面肯定不忍心频繁断更吧，这里给自己定个小目标：每个月至少更新两篇文章[这个不过分吧]</p>
 <h6 id="为什么决定要用文字记录"><a href="#为什么决定要用文字记录" class="headerlink" title="为什么决定要用文字记录"></a>为什么决定要用文字记录</h6><p>动力还是来源于短视频，看过太多太多的自媒体博主侃侃而谈，个人打心底还是很想拥有这样的能力的，对我这个i人来说还是蛮困难了；但是工作以来，小到周会，各种汇报，大到年终总结；不管是书面输出还是语言表达，都很不尽人意；往往很多时候由于没有表达出来，导致领导以为我没做，又或者做的不够好；吃了太多的哑巴亏；都说勤能补拙，我能想到的就是通过多多练习写作来提升一下这方面的能力了，目的如此单纯。</p>
 <h6 id="写些啥"><a href="#写些啥" class="headerlink" title="写些啥"></a>写些啥</h6><p>1、软件开发行业相关技术文档</p>

@@ -159,28 +159,15 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
-  const $loadingBox = document.getElementById('loading-box')
-  const $body = document.body
-  const preloader = {
-    endLoading: () => {
-      $body.style.overflow = ''
-      $loadingBox.classList.add('loaded')
-    },
-    initLoading: () => {
-      $body.style.overflow = 'hidden'
-      $loadingBox.classList.remove('loaded')
-    }
-  }
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
 
-  preloader.initLoading()
-  window.addEventListener('load', preloader.endLoading)
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
 
-  if (false) {
-    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
-    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
-  }
-})()</script><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/post-headers/xargs.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">small corner</span></a><a class="nav-page-title" href="/"><span class="site-name">xargs保姆级用法</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">xargs保姆级用法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-13T07:52:52.000Z" title="发表于 2024-12-13 15:52:52">2024-12-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-12T02:53:37.868Z" title="更新于 2025-05-12 10:53:37">2025-05-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>开发过程中，经常能看到 <code>xargs</code> 命令，仅了解这个命令与 <code>|</code> 的用法类似，但是具体各个参数的含义，老是忘，考虑到比较常用，这里花一些时间来记录一下这个命令的用法。</p>
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-center-circle.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/post-headers/xargs.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">small corner</span></a><a class="nav-page-title" href="/"><span class="site-name">xargs保姆级用法</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">xargs保姆级用法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-13T07:52:52.000Z" title="发表于 2024-12-13 15:52:52">2024-12-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-05-12T02:53:37.868Z" title="更新于 2025-05-12 10:53:37">2025-05-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>开发过程中，经常能看到 <code>xargs</code> 命令，仅了解这个命令与 <code>|</code> 的用法类似，但是具体各个参数的含义，老是忘，考虑到比较常用，这里花一些时间来记录一下这个命令的用法。</p>
 <h4 id="真实场景应用"><a href="#真实场景应用" class="headerlink" title="真实场景应用"></a>真实场景应用</h4><p>既然对 <code>|</code> 比较熟悉，那就尽量对比着来学习更不容易忘；</p>
 <p>举个例子：对安全要求比较高的厂商一般都会要求软件包内不允许携带一些嗅探类的工具，一般可以使用这个命令来进行过滤；过滤环境上所有匹配的文件，然后根据匹配到的文件路径，判断文件来源哪些包</p>
 <p><code>find / -iname &quot;*tcpdump*&quot; -o -iname &quot;*sniffer*&quot; -o -iname &quot;*wireshark*&quot; -o -iname &quot;*Netcat*&quot; -o -iname &quot;*gdb*&quot; -o -iname &quot;*strace*&quot; -o -iname &quot;*readeIf*&quot; -o -iname &quot;*cpp*&quot; -o -iname &quot;gcc&quot; -o -iname &quot;*dexdump*&quot; -o -iname &quot;*mirror*&quot; -o -iname &quot;*JDK*&quot;  &gt; result.txt</code></p>
