@@ -1,3 +1,9 @@
+/*
+* 魔改页面
+参考：https://zhang-blogs.cn/2024/08/05/12-Hexo-Butterfly%E9%AD%94%E6%94%B9%E6%95%99%E7%A8%8B%E4%B8%80/#0x02%E5%A4%B4%E5%83%8F%E4%B8%8D%E6%97%8B%E8%BD%AC
+但是，元素选择有点问题，需要根基实际情况进行元素选择方可生效
+ */
+
 /* 禁用所有旋转效果，设置默认状态 */
 #aside-content .avatar-img img {
     animation: none !important; /* 禁用旋转动画 */
