@@ -1,8 +1,11 @@
-/*停止头像旋转*/
-#aside-content .card-info .card-info-social-icons .social-icon :hover{
-    transform: scale(1.5);
+/* 禁用所有旋转效果，设置默认状态 */
+#aside-content .avatar-img img {
+    animation: none !important; /* 禁用旋转动画 */
+    transform: none !important; /* 禁用其他变换 */
+    transition: transform 0.3s ease !important; /* 为放大添加过渡 */
 }
 
-#aside-content .avatar-img :hover{
-    transform: none;
+/* 悬停时放大效果 */
+#aside-content .avatar-img:hover img {
+    transform: scale(1.5) !important;
 }
