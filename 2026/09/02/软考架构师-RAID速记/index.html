@@ -1,0 +1,406 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>RAID速记：0快1稳5省6狠10贵 | small corner</title><meta name="author" content="panyy"><meta name="copyright" content="panyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="系统架构设计师把 RAID 当 可用性战术（主动冗余） 来考。别背长文，抓住三件事：最少盘、容量、能挂几块。 口诀先钉死：  0快 · 1稳 · 5省 · 6狠 · 10贵   RAID ≠ 备份。阵列炸了，备份才是后路。 一张表：计算题几乎全在这s &#x3D; 组内最小盘容量，N &#x3D; 盘数。混用不同容量盘，一律按最小盘算。    级别 最少盘 能挂几块 有效容量 利用率 记法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RAID速记：0快1稳5省6狠10贵">
+<meta property="og:url" content="http://example.com/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/index.html">
+<meta property="og:site_name" content="small corner">
+<meta property="og:description" content="系统架构设计师把 RAID 当 可用性战术（主动冗余） 来考。别背长文，抓住三件事：最少盘、容量、能挂几块。 口诀先钉死：  0快 · 1稳 · 5省 · 6狠 · 10贵   RAID ≠ 备份。阵列炸了，备份才是后路。 一张表：计算题几乎全在这s &#x3D; 组内最小盘容量，N &#x3D; 盘数。混用不同容量盘，一律按最小盘算。    级别 最少盘 能挂几块 有效容量 利用率 记法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/post-headers/raid-cover.png">
+<meta property="article:published_time" content="2026-09-02T01:30:00.000Z">
+<meta property="article:modified_time" content="2026-09-02T01:43:00.573Z">
+<meta property="article:author" content="panyy">
+<meta property="article:tag" content="软考">
+<meta property="article:tag" content="RAID">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/post-headers/raid-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "RAID速记：0快1稳5省6狠10贵",
+  "url": "http://example.com/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/",
+  "image": "http://example.com/images/post-headers/raid-cover.png",
+  "datePublished": "2026-09-02T01:30:00.000Z",
+  "dateModified": "2026-09-02T01:43:00.573Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "panyy",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'RAID速记：0快1稳5省6狠10贵',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-center-circle.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/post-headers/raid-cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">RAID速记：0快1稳5省6狠10贵</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">RAID速记：0快1稳5省6狠10贵</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-02T01:30:00.000Z" title="发表于 2026-09-02 09:30:00">2026-09-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-02T01:43:00.573Z" title="更新于 2026-09-02 09:43:00">2026-09-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88/">系统架构设计师</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>系统架构设计师把 RAID 当 <strong>可用性战术（主动冗余）</strong> 来考。别背长文，抓住三件事：<strong>最少盘、容量、能挂几块</strong>。</p>
+<p>口诀先钉死：</p>
+<blockquote>
+<p><strong>0快 · 1稳 · 5省 · 6狠 · 10贵</strong></p>
+</blockquote>
+<p><img src="/images/raid/raid-cover.png"></p>
+<p>RAID ≠ 备份。阵列炸了，备份才是后路。</p>
+<h2 id="一张表：计算题几乎全在这"><a href="#一张表：计算题几乎全在这" class="headerlink" title="一张表：计算题几乎全在这"></a>一张表：计算题几乎全在这</h2><p><code>s</code> &#x3D; 组内<strong>最小盘</strong>容量，<code>N</code> &#x3D; 盘数。混用不同容量盘，一律按最小盘算。</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>最少盘</th>
+<th>能挂几块</th>
+<th>有效容量</th>
+<th>利用率</th>
+<th>记法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>N × s</td>
+<td>100%</td>
+<td>条带，无冗余</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>N-1</td>
+<td>s</td>
+<td>50%（两块时）</td>
+<td>镜子</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td>1</td>
+<td>(N-1) × s</td>
+<td>(N-1)&#x2F;N</td>
+<td>一块盘换校验</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4</td>
+<td>2</td>
+<td>(N-2) × s</td>
+<td>(N-2)&#x2F;N</td>
+<td>两块盘换双校验</td>
+</tr>
+<tr>
+<td>10</td>
+<td>4（偶数）</td>
+<td>每对可坏 1</td>
+<td>(N&#x2F;2) × s</td>
+<td>50%</td>
+<td>先镜后条</td>
+</tr>
+</tbody></table>
+<p>热备盘不参与容量。题目写「两组 RAID6 + 1 块全局热备」：<code>4+4+1=9</code>。</p>
+<h2 id="0-快：条带拉链，坏-1-块全亡"><a href="#0-快：条带拉链，坏-1-块全亡" class="headerlink" title="0 快：条带拉链，坏 1 块全亡"></a>0 快：条带拉链，坏 1 块全亡</h2><p><img src="/images/raid/raid-0-vs-1.png"></p>
+<ul>
+<li>数据切开并行写，读写都最快</li>
+<li><strong>任意 1 块坏 &#x3D; 全组数据没了</strong></li>
+<li>场景：视频缓存、临时盘、可再生成的数据</li>
+</ul>
+<h2 id="1-稳：双胞胎，坏-1-块还活"><a href="#1-稳：双胞胎，坏-1-块还活" class="headerlink" title="1 稳：双胞胎，坏 1 块还活"></a>1 稳：双胞胎，坏 1 块还活</h2><ul>
+<li>两份一模一样，读可并行，写和单盘差不多</li>
+<li>重建最快：直接拷贝，不算校验</li>
+<li>场景：系统盘、事务日志、小而关键的数据</li>
+</ul>
+<h2 id="2-3-4：选择题对号入座"><a href="#2-3-4：选择题对号入座" class="headerlink" title="2&#x2F;3&#x2F;4：选择题对号入座"></a>2&#x2F;3&#x2F;4：选择题对号入座</h2><p>几乎只考「冗余用的什么技术」，生产很少见。</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>切数据的粒度</th>
+<th>冗余技术</th>
+<th>校验怎么放</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td><strong>bit</strong></td>
+<td><strong>海明码</strong></td>
+<td>多块校验盘</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>字节</strong></td>
+<td>XOR 奇偶</td>
+<td><strong>独立</strong>校验盘</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>块</strong></td>
+<td>XOR 奇偶</td>
+<td><strong>独立</strong>校验盘</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>块</strong></td>
+<td>XOR 奇偶</td>
+<td><strong>分散</strong>到每块盘</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>块</strong></td>
+<td><strong>P+Q 双校验</strong></td>
+<td>分散</td>
+</tr>
+</tbody></table>
+<p>口诀：</p>
+<blockquote>
+<p><strong>1 镜像，2 海明，3 字节，4 独立块，5 块打散，6 双校验</strong></p>
+</blockquote>
+<p>3 和 4 的通病：独立校验盘是写瓶颈。5 把 P 转着圈扔到每块盘上，就是为了干掉这个瓶颈。</p>
+<h2 id="5-省：能挂-1-块，写一次要-4-次-IO"><a href="#5-省：能挂-1-块，写一次要-4-次-IO" class="headerlink" title="5 省：能挂 1 块，写一次要 4 次 IO"></a>5 省：能挂 1 块，写一次要 4 次 IO</h2><p><img src="/images/raid/raid5-parity.png"></p>
+<ul>
+<li><code>P = A ⊕ B ⊕ C</code>，坏哪块都能算回来</li>
+<li>P <strong>轮转</strong>分布，没有专职校验盘</li>
+<li>随机小写走「读改写」：<strong>读旧数据 + 读旧 P + 写新数据 + 写新 P &#x3D; 4 次 IO</strong></li>
+<li>坏 1 块还能用（降级）；重建时再坏 1 块 → 数据没了</li>
+<li>大盘重建窗口很长，架构题常因此贬 RAID5、抬 RAID6</li>
+</ul>
+<p>真题坑（2015 下架构）：3×80G → RAID5 &#x3D; <strong>160G</strong>；2×80G + 1×40G → RAID5 &#x3D; <strong>80G</strong>（按 40G 算）。</p>
+<h2 id="6-狠：能挂-2-块，写一次要-6-次-IO"><a href="#6-狠：能挂-2-块，写一次要-6-次-IO" class="headerlink" title="6 狠：能挂 2 块，写一次要 6 次 IO"></a>6 狠：能挂 2 块，写一次要 6 次 IO</h2><ul>
+<li>P 仍是 XOR，Q 是另一套校验（里德-所罗门 &#x2F; 伽罗瓦域）</li>
+<li>写惩罚更狠：RAID5 的 4 次再加 <strong>读 Q、写 Q ≈ 6 次 IO</strong></li>
+<li>场景：大容量归档、重建风险高的盘阵</li>
+</ul>
+<p>递进别混：</p>
+<blockquote>
+<p>RAID5：坏 1 还能用，坏 2 就没了<br>RAID6：坏 1 仍有保护，坏 2 还能用，坏 3 才没了</p>
+</blockquote>
+<h2 id="10-贵-vs-01：谁先全军覆没"><a href="#10-贵-vs-01：谁先全军覆没" class="headerlink" title="10 贵 vs 01：谁先全军覆没"></a>10 贵 vs 01：谁先全军覆没</h2><p>软考里 <strong>RAID10 &#x3D; RAID1+0（先镜后条）</strong>。01 是先条后镜，更脆。</p>
+<p><img src="/images/raid/raid10-vs-01.png"></p>
+<ul>
+<li>10：先做成多对镜子，再把各对拿去条带。<strong>不同对</strong>各坏 1 块，还活</li>
+<li>01：先做成两组 RAID0，再整体镜像。一组 RAID0 里坏 1 块，整组报废，只剩另一面镜子</li>
+<li>10 重建快（拷贝镜像盘），随机写没有校验惩罚</li>
+<li>场景：数据库、虚拟化、低延迟关键业务</li>
+<li>代价：容量腰斩，所以叫「贵」</li>
+</ul>
+<h2 id="30-秒选型"><a href="#30-秒选型" class="headerlink" title="30 秒选型"></a>30 秒选型</h2><table>
+<thead>
+<tr>
+<th>你要的</th>
+<th>选</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>只要快，丢了也能再算</td>
+<td>0</td>
+</tr>
+<tr>
+<td>盘少、数据关键、要简单</td>
+<td>1</td>
+</tr>
+<tr>
+<td>容量和成本，读多写少</td>
+<td>5（大盘时代更常改 6）</td>
+</tr>
+<tr>
+<td>大盘、怕重建二次故障</td>
+<td>6</td>
+</tr>
+<tr>
+<td>数据库随机写 + 可靠</td>
+<td>10</td>
+</tr>
+</tbody></table>
+<p>不可能三角：<strong>利用率、写性能、安全性，不能三个都满分。</strong></p>
+<h2 id="架构师还爱问的边角"><a href="#架构师还爱问的边角" class="headerlink" title="架构师还爱问的边角"></a>架构师还爱问的边角</h2><ul>
+<li><strong>层次</strong>：RAID 管「盘怎么组」；DAS &#x2F; NAS &#x2F; SAN 管「存储怎么接到服务器」。选项里混进来就排除</li>
+<li><strong>JBOD</strong>：只是把盘拼成一大块，<strong>没有</strong>条带也<strong>没有</strong>冗余，别当成 RAID0</li>
+<li><strong>RAID50 &#x2F; 60</strong>：多组 5&#x2F;6 再做条带。每组各自按 5&#x2F;6 容错，盘数门槛高（大约 6 &#x2F; 8 起）。计算先分组，再套公式</li>
+<li><strong>硬件 RAID</strong>：独立卡 + Cache，不占主机 CPU；<strong>软件 RAID</strong> 便宜，吃主机算力</li>
+<li><strong>条带大小</strong>：太小元数据碎、太大吃不满并行。只当「影响性能的因素」记</li>
+<li><strong>热备</strong>：插着不干活，坏盘后自动顶上。全局热备谁都能用，专用热备只服务指定组</li>
+<li><strong>降级 &#x2F; 重建</strong>：能访问 ≠ 还有冗余。重建期是第二次故障的高危窗口</li>
+</ul>
+<h2 id="考场-4-步"><a href="#考场-4-步" class="headerlink" title="考场 4 步"></a>考场 4 步</h2><ol>
+<li>先看级别，写下最少盘、容错、容量公式  </li>
+<li>容量 <strong>× 最小盘</strong>，热备盘别算进有效容量  </li>
+<li>多组 + 热备：每组下限相加，再加热备  </li>
+<li>冗余技术对号：镜像 &#x2F; 海明 &#x2F; XOR &#x2F; P+Q</li>
+</ol>
+<p>出门前再念一遍：</p>
+<blockquote>
+<p><strong>0快1稳5省6狠10贵</strong><br><strong>1镜像 2海明 3字节 4独立 5打散 6双校</strong><br><strong>5 写 4 次 IO，6 写 6 次 IO</strong><br><strong>10 先镜后条，01 先条后镜</strong></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">panyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/">http://example.com/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">small corner</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%AF%E8%80%83/">软考</a><a class="post-meta__tags" href="/tags/RAID/">RAID</a></div><div class="post-share"><div class="social-share" data-image="/images/post-headers/raid-cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2024/12/31/2024%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" title="2024年终总结技巧"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">2024年终总结技巧</div></div><div class="info-2"><div class="info-item-1">在网上看到过下面这一段话，觉得很有道理： 年终总结，于每个人而言，都是一次很好的自我复盘和成长的机会。无论我们身处什么岗位，我们一定或多或少，再某些场景被动地去开展过工作。年终总结可以很好的帮助我们回顾，串联，剖析，自省这一年我们做的事，到底是真的有价值的充实自己，还是在麻木的执行事项。 但是，历年写的年终总结都是在记流水账，丝毫没有亮点可言，所以今年决定先花一些时间，学一学年终总结的编写技巧。 最忌讳的写法流水账，完全把一年中所有做过的事情罗列一遍 年终总结给谁看根据我历年的经验，一般都是小组长+主管+hr+我；先照着写好的年终总结念一遍【我们的是word形式】，然后主管和hr进行点评 年终总结的核心写结果；不是说我过去的一年具体每天都干了什么，而是要突出这一年来取得的结果。【可能一年到头你在公司干的事情，除了你自己和小组长，别人可能都不会知道，那么这个总结的契机，就是你的表现机会，把你拿到的结果和实现的价值让领导看到】；结果肯定是以目标为导向的，所以这里一般会有几种场景 场景一：年初定下的目标完成了这种应该算是优等生，就对着年初的目标写结果就行了，优等生往往会得到领导的过多关...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/avatar/avatar.JPG" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">panyy</div><div class="author-info-description">The palest ink is better than the best memory</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/panyy97"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%BC%A0%E8%A1%A8%EF%BC%9A%E8%AE%A1%E7%AE%97%E9%A2%98%E5%87%A0%E4%B9%8E%E5%85%A8%E5%9C%A8%E8%BF%99"><span class="toc-number">1.</span> <span class="toc-text">一张表：计算题几乎全在这</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E5%BF%AB%EF%BC%9A%E6%9D%A1%E5%B8%A6%E6%8B%89%E9%93%BE%EF%BC%8C%E5%9D%8F-1-%E5%9D%97%E5%85%A8%E4%BA%A1"><span class="toc-number">2.</span> <span class="toc-text">0 快：条带拉链，坏 1 块全亡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%A8%B3%EF%BC%9A%E5%8F%8C%E8%83%9E%E8%83%8E%EF%BC%8C%E5%9D%8F-1-%E5%9D%97%E8%BF%98%E6%B4%BB"><span class="toc-number">3.</span> <span class="toc-text">1 稳：双胞胎，坏 1 块还活</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-4%EF%BC%9A%E9%80%89%E6%8B%A9%E9%A2%98%E5%AF%B9%E5%8F%B7%E5%85%A5%E5%BA%A7"><span class="toc-number">4.</span> <span class="toc-text">2&#x2F;3&#x2F;4：选择题对号入座</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%9C%81%EF%BC%9A%E8%83%BD%E6%8C%82-1-%E5%9D%97%EF%BC%8C%E5%86%99%E4%B8%80%E6%AC%A1%E8%A6%81-4-%E6%AC%A1-IO"><span class="toc-number">5.</span> <span class="toc-text">5 省：能挂 1 块，写一次要 4 次 IO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E7%8B%A0%EF%BC%9A%E8%83%BD%E6%8C%82-2-%E5%9D%97%EF%BC%8C%E5%86%99%E4%B8%80%E6%AC%A1%E8%A6%81-6-%E6%AC%A1-IO"><span class="toc-number">6.</span> <span class="toc-text">6 狠：能挂 2 块，写一次要 6 次 IO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E8%B4%B5-vs-01%EF%BC%9A%E8%B0%81%E5%85%88%E5%85%A8%E5%86%9B%E8%A6%86%E6%B2%A1"><span class="toc-number">7.</span> <span class="toc-text">10 贵 vs 01：谁先全军覆没</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#30-%E7%A7%92%E9%80%89%E5%9E%8B"><span class="toc-number">8.</span> <span class="toc-text">30 秒选型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E5%B8%88%E8%BF%98%E7%88%B1%E9%97%AE%E7%9A%84%E8%BE%B9%E8%A7%92"><span class="toc-number">9.</span> <span class="toc-text">架构师还爱问的边角</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%83%E5%9C%BA-4-%E6%AD%A5"><span class="toc-number">10.</span> <span class="toc-text">考场 4 步</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/" title="RAID速记：0快1稳5省6狠10贵"><img src="/images/post-headers/raid-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RAID速记：0快1稳5省6狠10贵"/></a><div class="content"><a class="title" href="/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/" title="RAID速记：0快1稳5省6狠10贵">RAID速记：0快1稳5省6狠10贵</a><time datetime="2026-09-02T01:30:00.000Z" title="发表于 2026-09-02 09:30:00">2026-09-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/31/2024%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" title="2024年终总结技巧">2024年终总结技巧</a><time datetime="2024-12-31T03:52:43.000Z" title="发表于 2024-12-31 11:52:43">2024-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/13/xargs/" title="xargs保姆级用法"><img src="/images/post-headers/xargs.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="xargs保姆级用法"/></a><div class="content"><a class="title" href="/2024/12/13/xargs/" title="xargs保姆级用法">xargs保姆级用法</a><time datetime="2024-12-13T07:52:52.000Z" title="发表于 2024-12-13 15:52:52">2024-12-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/06/init/" title="初次见面，请多指教"><img src="/images/post-headers/init.JPG" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="初次见面，请多指教"/></a><div class="content"><a class="title" href="/2024/12/06/init/" title="初次见面，请多指教">初次见面，请多指教</a><time datetime="2024-12-06T08:25:18.000Z" title="发表于 2024-12-06 16:25:18">2024-12-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/06/Font/" title="Font">Font</a><time datetime="2024-12-06T08:22:15.000Z" title="发表于 2024-12-06 16:22:15">2024-12-06</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By panyy</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="ge,ge,ni,gan,ma" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
