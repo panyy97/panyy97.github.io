@@ -1,0 +1,349 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>页式存储位图：先把小例子算懂 | small corner</title><meta name="author" content="panyy"><meta name="copyright" content="panyy"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="原题：  操作系统采用页式存储管理，用位图管理空闲页框。页大小 4KB，物理内存 16GB，位图占多少 KB？A. 64 B. 512 C. 256 D. 128  很多人直接套 2^34 &#x2F; 2^12 &#x2F; 8，数字一大就晕。下面不先甩公式，先把「位图在干什么」讲清楚，再用一个很小的内存算一遍，最后才回到这道题。 1. 这题到底在问什么物理内存被切成很多个大小相同的格子，每个格子叫 页框。 操作系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="页式存储位图：先把小例子算懂">
+<meta property="og:url" content="http://example.com/2026/09/08/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E4%BD%8D%E5%9B%BE/index.html">
+<meta property="og:site_name" content="small corner">
+<meta property="og:description" content="原题：  操作系统采用页式存储管理，用位图管理空闲页框。页大小 4KB，物理内存 16GB，位图占多少 KB？A. 64 B. 512 C. 256 D. 128  很多人直接套 2^34 &#x2F; 2^12 &#x2F; 8，数字一大就晕。下面不先甩公式，先把「位图在干什么」讲清楚，再用一个很小的内存算一遍，最后才回到这道题。 1. 这题到底在问什么物理内存被切成很多个大小相同的格子，每个格子叫 页框。 操作系">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/avatar/avatar.JPG">
+<meta property="article:published_time" content="2026-09-08T06:12:00.000Z">
+<meta property="article:modified_time" content="2026-09-08T06:50:53.298Z">
+<meta property="article:author" content="panyy">
+<meta property="article:tag" content="软考">
+<meta property="article:tag" content="页式存储">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/avatar/avatar.JPG"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "页式存储位图：先把小例子算懂",
+  "url": "http://example.com/2026/09/08/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E4%BD%8D%E5%9B%BE/",
+  "image": "http://example.com/images/avatar/avatar.JPG",
+  "datePublished": "2026-09-08T06:12:00.000Z",
+  "dateModified": "2026-09-08T06:50:53.298Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "panyy",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2026/09/08/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E4%BD%8D%E5%9B%BE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '页式存储位图：先把小例子算懂',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-center-circle.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">页式存储位图：先把小例子算懂</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">页式存储位图：先把小例子算懂</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-08T06:12:00.000Z" title="发表于 2026-09-08 14:12:00">2026-09-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-08T06:50:53.298Z" title="更新于 2026-09-08 14:50:53">2026-09-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%B8%88/">系统架构设计师</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>原题：</p>
+<blockquote>
+<p>操作系统采用页式存储管理，用位图管理空闲页框。页大小 4KB，物理内存 16GB，位图占多少 <strong>KB</strong>？<br>A. 64 B. 512 C. 256 D. 128</p>
+</blockquote>
+<p>很多人直接套 <code>2^34 / 2^12 / 8</code>，数字一大就晕。下面不先甩公式，先把「位图在干什么」讲清楚，再用一个很小的内存算一遍，最后才回到这道题。</p>
+<h2 id="1-这题到底在问什么"><a href="#1-这题到底在问什么" class="headerlink" title="1. 这题到底在问什么"></a>1. 这题到底在问什么</h2><p>物理内存被切成很多个大小相同的格子，每个格子叫 <strong>页框</strong>。</p>
+<p>操作系统必须记住：哪个格子空着、哪个已经占用。本题用的办法是 <strong>位图</strong>：给每个格子配一个开关。</p>
+<ul>
+<li>开关只有两种状态：占用 &#x2F; 空闲</li>
+<li>两种状态用 <strong>1 个二进制位（bit）</strong> 就够了</li>
+<li>格子有多少个，位图就有多少个 bit</li>
+</ul>
+<p>所以这题其实只问一件事：</p>
+<blockquote>
+<p>16GB 的内存，按 4KB 一块来切，会切出多少块？<br>每一块用 1 bit 记账，这些 bit 加起来占多少 KB？</p>
+</blockquote>
+<h2 id="2-页式存储：把内存切成固定大小的格子"><a href="#2-页式存储：把内存切成固定大小的格子" class="headerlink" title="2. 页式存储：把内存切成固定大小的格子"></a>2. 页式存储：把内存切成固定大小的格子</h2><p>可以把物理内存想成一排储物柜。</p>
+<ul>
+<li>每个柜子一样大，本题里每个柜子是 <strong>4KB</strong></li>
+<li>这样的一个柜子，操作系统叫它 <strong>页框</strong></li>
+<li>程序里同样大小的一块数据，叫 <strong>页</strong></li>
+<li>程序要运行时，某个页会被放进某个空闲页框里</li>
+</ul>
+<p>页和页框一样大，所以：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">页框个数 = 物理内存总大小 ÷ 每一个页框的大小</span><br></pre></td></tr></table></figure>
+
+<p>切出来的格子越多，就要记的开关越多。</p>
+<h2 id="3-位图：每个格子一个开关"><a href="#3-位图：每个格子一个开关" class="headerlink" title="3. 位图：每个格子一个开关"></a>3. 位图：每个格子一个开关</h2><p>假设现在只有 8 个页框，其中第 0、2、3、5、7 号被占用，其余空闲：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">页框编号：  0   1   2   3   4   5   6   7</span><br><span class="line">是否占用：  占  空  占  占  空  占  空  占</span><br><span class="line">位图：      1   0   1   1   0   1   0   1</span><br></pre></td></tr></table></figure>
+
+<p>这 8 个开关排成一排，正好是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 0 1 1 0 1 0 1</span><br></pre></td></tr></table></figure>
+
+<p>计算机里 <strong>8 个 bit &#x3D; 1 个字节（Byte）</strong>。<br>所以上面这张 8 个页框的位图，只占 <strong>1 字节</strong>。</p>
+<p>这里有两个关键结论，后面算大题就靠它们：</p>
+<ol>
+<li><strong>一个页框对应位图里的 1 bit</strong>，不是 1 个字节</li>
+<li>把 bit 换成我们平时说的 KB，必须先 <strong>除以 8</strong> 变成字节，再换单位</li>
+</ol>
+<p>0 表示空闲还是 1 表示空闲，不同教材可能相反，<strong>不影响位图占多大</strong>。因为不管怎么约定，每个页框仍然只占 1 bit。</p>
+<h2 id="4-先拿一个很小的内存练手"><a href="#4-先拿一个很小的内存练手" class="headerlink" title="4. 先拿一个很小的内存练手"></a>4. 先拿一个很小的内存练手</h2><p>假设物理内存只有 <strong>32 字节</strong>，页大小 <strong>8 字节</strong>。数字小，能一眼看完。</p>
+<p>第一步，有多少个页框：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">页框数 = 32 ÷ 8 = 4 个</span><br></pre></td></tr></table></figure>
+
+<p>就是 4 个柜子。</p>
+<p>第二步，位图需要多少 bit：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4 个页框 → 4 bit</span><br></pre></td></tr></table></figure>
+
+<p>第三步，4 bit 还不满 1 字节。实际系统会按字节对齐，这里为了看清换算关系，先写成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4 bit ÷ 8 = 0.5 字节</span><br></pre></td></tr></table></figure>
+
+<p>你现在已经走完了这道软考题的全部三步，只是数字换成了 32 和 8：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">位图大小 = 页框数 ÷ 8</span><br><span class="line">         = (内存大小 ÷ 页大小) ÷ 8</span><br></pre></td></tr></table></figure>
+
+<p>大题无非是把 32 字节、8 字节，换成 16GB、4KB。</p>
+<h2 id="5-回到原题，按人话逐步算"><a href="#5-回到原题，按人话逐步算" class="headerlink" title="5. 回到原题，按人话逐步算"></a>5. 回到原题，按人话逐步算</h2><p>已知：</p>
+<ul>
+<li>物理内存 &#x3D; 16GB</li>
+<li>页大小 &#x3D; 4KB</li>
+<li>问的是位图占多少 <strong>KB</strong></li>
+</ul>
+<p>软考里容量换算用 1024，不是 1000：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1KB = 1024 B</span><br><span class="line">1MB = 1024 KB</span><br><span class="line">1GB = 1024 MB</span><br></pre></td></tr></table></figure>
+
+<h3 id="第一步：16GB-能切出多少个-4KB-的页框"><a href="#第一步：16GB-能切出多少个-4KB-的页框" class="headerlink" title="第一步：16GB 能切出多少个 4KB 的页框"></a>第一步：16GB 能切出多少个 4KB 的页框</h3><p>先问自己：1GB 里有多少个 1KB？</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1GB = 1024 MB = 1024 × 1024 KB</span><br></pre></td></tr></table></figure>
+
+<p>所以 16GB 等于：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">16GB = 16 × 1024 × 1024 KB</span><br></pre></td></tr></table></figure>
+
+<p>每个页框 4KB，页框数就是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">页框数 = 16 × 1024 × 1024 ÷ 4</span><br><span class="line">       = 4 × 1024 × 1024</span><br></pre></td></tr></table></figure>
+
+<p><code>4 × 1024 × 1024</code> 就是 <strong>4M 个页框</strong>（这里的 M 表示 1024×1024）。</p>
+<p>到这里还没算位图。我们只是知道：内存被切成了大约 400 万个格子。</p>
+<h3 id="第二步：这些格子要用多少-bit-记账"><a href="#第二步：这些格子要用多少-bit-记账" class="headerlink" title="第二步：这些格子要用多少 bit 记账"></a>第二步：这些格子要用多少 bit 记账</h3><p>一个格子 1 bit：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">位图 = 4 × 1024 × 1024 bit</span><br></pre></td></tr></table></figure>
+
+<h3 id="第三步：bit-换成-KB"><a href="#第三步：bit-换成-KB" class="headerlink" title="第三步：bit 换成 KB"></a>第三步：bit 换成 KB</h3><p>先变成字节。8 bit &#x3D; 1 字节，所以除以 8：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4 × 1024 × 1024 bit ÷ 8</span><br><span class="line">= 0.5 × 1024 × 1024 字节</span><br></pre></td></tr></table></figure>
+
+<p><code>0.5 × 1024 × 1024 字节</code> 再换成 KB：除以 1024。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0.5 × 1024 × 1024 ÷ 1024</span><br><span class="line">= 0.5 × 1024</span><br><span class="line">= 512 KB</span><br></pre></td></tr></table></figure>
+
+<p>答案是 <strong>512 KB</strong>，选 <strong>B</strong>。</p>
+<p>如果更愿意写成一条式子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">位图(KB) = 16GB ÷ 4KB ÷ 8</span><br></pre></td></tr></table></figure>
+
+<p>注意单位：<code>16GB ÷ 4KB</code> 得到的是「个数」，还是 bit；再 <code>÷ 8</code> 得到字节，最后按题目要求换成 KB。上面三步就是把这条式子拆开算。</p>
+<h2 id="6-为什么选项里有-256、128、64"><a href="#6-为什么选项里有-256、128、64" class="headerlink" title="6. 为什么选项里有 256、128、64"></a>6. 为什么选项里有 256、128、64</h2><p>这三步里，最容易错的是第三步。</p>
+<table>
+<thead>
+<tr>
+<th>你可能做了什么</th>
+<th>会得到</th>
+<th>对应选项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>按上面算完</td>
+<td>512 KB</td>
+<td>B（正确）</td>
+</tr>
+<tr>
+<td>bit 换成字节时，当成 16 bit 才是 1 字节，多除了一次 2</td>
+<td>256 KB</td>
+<td>C</td>
+</tr>
+<tr>
+<td>再多除一次</td>
+<td>128、64</td>
+<td>D、A</td>
+</tr>
+</tbody></table>
+<p>所以看到 256，先检查：是不是把「8 bit &#x3D; 1 字节」记成了别的。</p>
+<p>另外两个常见误会：</p>
+<ul>
+<li><strong>把 1 个页框记成 1 个字节</strong>。那算出来会是 4MB 量级，选项对不上，说明前提错了。位图是 1 bit，不是 1 字节。</li>
+<li><strong>算完停在字节上</strong>。<code>4 × 1024 × 1024 ÷ 8 = 524288 字节</code>，题目问的是 KB，还要再除以 1024，才是 512。</li>
+</ul>
+<h2 id="7-以后遇到同类题怎么想"><a href="#7-以后遇到同类题怎么想" class="headerlink" title="7. 以后遇到同类题怎么想"></a>7. 以后遇到同类题怎么想</h2><p>不用背很多公式，就问自己三个问题：</p>
+<ol>
+<li>总共有多少个格子？（内存 ÷ 页大小，磁盘题则是磁盘容量 ÷ 块大小）</li>
+<li>每个格子用 1 bit 记，一共多少 bit？</li>
+<li>题目要 KB 还是字节？bit 先 ÷8 变成字节，再换单位。</li>
+</ol>
+<p>页表题不要和这道混：</p>
+<ul>
+<li><strong>位图</strong>：管格子空不空，每个格子 1 <strong>bit</strong>，所以要 <strong>除以 8</strong></li>
+<li><strong>页表</strong>：管「这一页放在几号格子」，每一页对应一条记录，每条记录是好几个 <strong>字节</strong>，所以是 <strong>乘以表项长度</strong></li>
+</ul>
+<h2 id="收束"><a href="#收束" class="headerlink" title="收束"></a>收束</h2><p>这道题不是在考复杂的操作系统原理，只是在考：</p>
+<blockquote>
+<p>16GB 按 4KB 切开，得到 4×1024×1024 个页框；<br>每个页框用 1 bit 记账；<br>这些 bit 加起来是 512 KB。</p>
+</blockquote>
+<p>选 <strong>B. 512</strong>。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">panyy</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2026/09/08/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E4%BD%8D%E5%9B%BE/">http://example.com/2026/09/08/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E4%BD%8D%E5%9B%BE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">small corner</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%AF%E8%80%83/">软考</a><a class="post-meta__tags" href="/tags/%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8/">页式存储</a></div><div class="post-share"><div class="social-share" data-image="/images/avatar/avatar.JPG" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/" title="RAID速记：0快1稳5省6狠10贵"><img class="cover" src="/images/post-headers/raid-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">RAID速记：0快1稳5省6狠10贵</div></div><div class="info-2"><div class="info-item-1">系统架构设计师把 RAID 当 可用性战术（主动冗余） 来考。别背长文，抓住三件事：最少盘、容量、能挂几块。 口诀先钉死：  0快 · 1稳 · 5省 · 6狠 · 10贵   RAID ≠ 备份。阵列炸了，备份才是后路。 一张表：计算题几乎全在这s &#x3D; 组内最小盘容量，N &#x3D; 盘数。混用不同容量盘，一律按最小盘算。    级别 最少盘 能挂几块 有效容量 利用率 记法    0 2 0 N × s 100% 条带，无冗余   1 2 N-1 s 50%（两块时） 镜子   5 3 1 (N-1) × s (N-1)&#x2F;N 一块盘换校验   6 4 2 (N-2) × s (N-2)&#x2F;N 两块盘换双校验   10 4（偶数） 每对可坏 1 (N&#x2F;2) × s 50% 先镜后条   热备盘不参与容量。题目写「两组 RAID6 + 1 块全局热备」：4+4+1=9。 0 快：条带拉链，坏 1 块全亡  数据切开并行写，读写都最快 任意 1 块坏 &#x3D; 全组数据没了 场景：视频缓存、临时盘、可再生成的数据  1 稳：双胞胎，坏 1...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/" title="RAID速记：0快1稳5省6狠10贵"><img class="cover" src="/images/post-headers/raid-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-02</div><div class="info-item-2">RAID速记：0快1稳5省6狠10贵</div></div><div class="info-2"><div class="info-item-1">系统架构设计师把 RAID 当 可用性战术（主动冗余） 来考。别背长文，抓住三件事：最少盘、容量、能挂几块。 口诀先钉死：  0快 · 1稳 · 5省 · 6狠 · 10贵   RAID ≠ 备份。阵列炸了，备份才是后路。 一张表：计算题几乎全在这s &#x3D; 组内最小盘容量，N &#x3D; 盘数。混用不同容量盘，一律按最小盘算。    级别 最少盘 能挂几块 有效容量 利用率 记法    0 2 0 N × s 100% 条带，无冗余   1 2 N-1 s 50%（两块时） 镜子   5 3 1 (N-1) × s (N-1)&#x2F;N 一块盘换校验   6 4 2 (N-2) × s (N-2)&#x2F;N 两块盘换双校验   10 4（偶数） 每对可坏 1 (N&#x2F;2) × s 50% 先镜后条   热备盘不参与容量。题目写「两组 RAID6 + 1 块全局热备」：4+4+1=9。 0 快：条带拉链，坏 1 块全亡  数据切开并行写，读写都最快 任意 1 块坏 &#x3D; 全组数据没了 场景：视频缓存、临时盘、可再生成的数据  1 稳：双胞胎，坏 1...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/avatar/avatar.JPG" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">panyy</div><div class="author-info-description">The palest ink is better than the best memory</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/panyy97"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%BF%99%E9%A2%98%E5%88%B0%E5%BA%95%E5%9C%A8%E9%97%AE%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">1. 这题到底在问什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%EF%BC%9A%E6%8A%8A%E5%86%85%E5%AD%98%E5%88%87%E6%88%90%E5%9B%BA%E5%AE%9A%E5%A4%A7%E5%B0%8F%E7%9A%84%E6%A0%BC%E5%AD%90"><span class="toc-number">2.</span> <span class="toc-text">2. 页式存储：把内存切成固定大小的格子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BD%8D%E5%9B%BE%EF%BC%9A%E6%AF%8F%E4%B8%AA%E6%A0%BC%E5%AD%90%E4%B8%80%E4%B8%AA%E5%BC%80%E5%85%B3"><span class="toc-number">3.</span> <span class="toc-text">3. 位图：每个格子一个开关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%88%E6%8B%BF%E4%B8%80%E4%B8%AA%E5%BE%88%E5%B0%8F%E7%9A%84%E5%86%85%E5%AD%98%E7%BB%83%E6%89%8B"><span class="toc-number">4.</span> <span class="toc-text">4. 先拿一个很小的内存练手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%9B%9E%E5%88%B0%E5%8E%9F%E9%A2%98%EF%BC%8C%E6%8C%89%E4%BA%BA%E8%AF%9D%E9%80%90%E6%AD%A5%E7%AE%97"><span class="toc-number">5.</span> <span class="toc-text">5. 回到原题，按人话逐步算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A16GB-%E8%83%BD%E5%88%87%E5%87%BA%E5%A4%9A%E5%B0%91%E4%B8%AA-4KB-%E7%9A%84%E9%A1%B5%E6%A1%86"><span class="toc-number">5.1.</span> <span class="toc-text">第一步：16GB 能切出多少个 4KB 的页框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E8%BF%99%E4%BA%9B%E6%A0%BC%E5%AD%90%E8%A6%81%E7%94%A8%E5%A4%9A%E5%B0%91-bit-%E8%AE%B0%E8%B4%A6"><span class="toc-number">5.2.</span> <span class="toc-text">第二步：这些格子要用多少 bit 记账</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9Abit-%E6%8D%A2%E6%88%90-KB"><span class="toc-number">5.3.</span> <span class="toc-text">第三步：bit 换成 KB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E9%A1%B9%E9%87%8C%E6%9C%89-256%E3%80%81128%E3%80%8164"><span class="toc-number">6.</span> <span class="toc-text">6. 为什么选项里有 256、128、64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E4%BB%A5%E5%90%8E%E9%81%87%E5%88%B0%E5%90%8C%E7%B1%BB%E9%A2%98%E6%80%8E%E4%B9%88%E6%83%B3"><span class="toc-number">7.</span> <span class="toc-text">7. 以后遇到同类题怎么想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E6%9D%9F"><span class="toc-number">8.</span> <span class="toc-text">收束</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/08/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-%E9%A1%B5%E5%BC%8F%E5%AD%98%E5%82%A8%E4%BD%8D%E5%9B%BE/" title="页式存储位图：先把小例子算懂">页式存储位图：先把小例子算懂</a><time datetime="2026-09-08T06:12:00.000Z" title="发表于 2026-09-08 14:12:00">2026-09-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/" title="RAID速记：0快1稳5省6狠10贵"><img src="/images/post-headers/raid-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RAID速记：0快1稳5省6狠10贵"/></a><div class="content"><a class="title" href="/2026/09/02/%E8%BD%AF%E8%80%83%E6%9E%B6%E6%9E%84%E5%B8%88-RAID%E9%80%9F%E8%AE%B0/" title="RAID速记：0快1稳5省6狠10贵">RAID速记：0快1稳5省6狠10贵</a><time datetime="2026-09-02T01:30:00.000Z" title="发表于 2026-09-02 09:30:00">2026-09-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/31/2024%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" title="2024年终总结技巧">2024年终总结技巧</a><time datetime="2024-12-31T03:52:43.000Z" title="发表于 2024-12-31 11:52:43">2024-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/13/xargs/" title="xargs保姆级用法"><img src="/images/post-headers/xargs.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="xargs保姆级用法"/></a><div class="content"><a class="title" href="/2024/12/13/xargs/" title="xargs保姆级用法">xargs保姆级用法</a><time datetime="2024-12-13T07:52:52.000Z" title="发表于 2024-12-13 15:52:52">2024-12-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/06/init/" title="初次见面，请多指教"><img src="/images/post-headers/init.JPG" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="初次见面，请多指教"/></a><div class="content"><a class="title" href="/2024/12/06/init/" title="初次见面，请多指教">初次见面，请多指教</a><time datetime="2024-12-06T08:25:18.000Z" title="发表于 2024-12-06 16:25:18">2024-12-06</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By panyy</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="ge,ge,ni,gan,ma" data-fontsize="15px" data-random="false" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
